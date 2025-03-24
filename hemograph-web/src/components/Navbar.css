@@ -1,0 +1,46 @@
+.nav-link.active {
+  color: black !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 3px !important;
+}
+
+.nav-link:hover {
+  color: black !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 3px !important;
+}
+
+/* Remove a cor azul padrão dos links */
+.nav-link {
+  color: black !important;
+  font-weight: 500 !important;
+}
+
+/* Estilo para o dropdown */
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: black !important;
+  color: white !important;
+}
+
+/* Estilo para o dropdown quando ativo */
+.dropdown-toggle.active,
+.dropdown-toggle.show,
+.nav-item.dropdown.active .dropdown-toggle,
+.nav-item.dropdown.active a.dropdown-toggle {
+  color: black !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 3px !important;
+}
+
+/* Força o sublinhado no dropdown ativo */
+.nav-item.dropdown.active .dropdown-toggle::after {
+  text-decoration: underline !important;
+}
+
+/* Estilo para a imagem do navbar */
+.navbar-brand img {
+  background-color: white !important;
+  border-radius: 100%;
+  padding: 1px;
+}

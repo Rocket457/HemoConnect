@@ -1,0 +1,87 @@
+/* Estilos gerais */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Estilos dos inputs */
+.form-control, .form-select {
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+/* Estilo do placeholder */
+.form-control::placeholder {
+  opacity: 0.45;
+  color: #000;
+}
+
+.form-select {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.form-select option {
+  color: #000;
+}
+
+.form-select option:first-child {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #46052d;
+  box-shadow: 0 0 0 0.2rem rgba(70, 5, 45, 0.25);
+  background-color: transparent;
+}
+
+/* Estilos das labels */
+.form-label {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Estilo do checkbox */
+.form-check-input {
+  border-color: #46052d;
+}
+
+.form-check-input:checked {
+  background-color: #46052d;
+  border-color: #46052d;
+}
+
+.form-check-label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Estilo para campos desabilitados */
+.form-control:disabled {
+  background-color: rgba(248, 249, 250, 0.7);
+  border-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+/* Estilo para campos com erro */
+.form-control.is-invalid {
+  border-color: #dc3545;
+  background-image: none;
+}
+
+.form-control.is-invalid:focus { 
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Estilo para o container do formulário */
+.form-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+} 

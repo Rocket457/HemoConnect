@@ -1,0 +1,57 @@
+.nav-pills .nav-link {
+  color: #46052d;
+  background-color: transparent;
+  border: 2px solid #46052d;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link:hover,
+.nav-pills .nav-link:focus {
+  background-color: #B32346;
+  color: #fff !important;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #B32346;
+  color: white !important;
+}
+
+.form-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para o tooltip */
+[data-tooltip] {
+  position: relative;
+  cursor: help;
+}
+
+[data-tooltip]:before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem;
+  background-color: #46052d;
+  color: white;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+[data-tooltip]:hover:before {
+  opacity: 1;
+  visibility: visible;
+} 
