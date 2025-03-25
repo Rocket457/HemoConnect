@@ -5,7 +5,7 @@
   "scripts": {
     "prebuild": "chmod +x node_modules/.bin/react-scripts",
     "build": "react-scripts build"
-  }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
