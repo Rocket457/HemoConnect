@@ -49,11 +49,7 @@ const options = {
                         },
                         contato: {
                             type: 'string',
-                            description: 'Número de telefone do doador'
-                        },
-                        cep: {
-                            type: 'string',
-                            description: 'CEP do endereço'
+                            description: 'Contato do doador (telefone ou email)'
                         },
                         cidade: {
                             type: 'string',
@@ -61,37 +57,19 @@ const options = {
                         },
                         estado: {
                             type: 'string',
-                            description: 'Estado do doador (UF)'
-                        },
-                        rua: {
-                            type: 'string',
-                            description: 'Rua do endereço'
-                        },
-                        numero: {
-                            type: 'string',
-                            description: 'Número do endereço'
-                        },
-                        bairro: {
-                            type: 'string',
-                            description: 'Bairro do endereço'
-                        },
-                        email: {
-                            type: 'string',
-                            format: 'email',
-                            description: 'Email do doador'
+                            description: 'Estado do doador'
                         },
                         ultima_doacao: {
                             type: 'string',
                             format: 'date',
-                            nullable: true,
                             description: 'Data da última doação'
                         },
                         ultimo_banco: {
                             type: 'string',
-                            nullable: true,
-                            description: 'Nome do último banco onde doou'
+                            description: 'Nome do último banco de sangue onde doou'
                         }
-                    }
+                    },
+                    required: ['nome', 'tipo_sanguineo', 'data_nascimento', 'peso', 'contato', 'cidade', 'estado']
                 },
                 BancoSangue: {
                     type: 'object',
@@ -541,8 +519,13 @@ const options = {
     apis: ['./routes/*.js']
 };
 
-const specs = swaggerJsdoc(options);
+const swaggerSpec = swaggerJsdoc(options);
 
 module.exports = (app) => {
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+        explorer: true,
+        customCss: '.swagger-ui .topbar { display: none }',
+        customSiteTitle: "HemoGraph API Documentation",
+        customfavIcon: "/favicon.ico"
+    }));
 }; 
