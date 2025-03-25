@@ -2,7 +2,9 @@
 node_modules/
 **/node_modules/
 /node_modules
-hemograph-web/node_modules
+/hemograph-web/node_modules
+hemograph-web/node_modules/
+**/hemograph-web/node_modules/
 
 # Environment files
 .env
