@@ -1,5 +1,7 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const path = require('path');
+const express = require('express');
 
 const options = {
     definition: {
@@ -526,6 +528,32 @@ module.exports = (app) => {
         explorer: true,
         customCss: '.swagger-ui .topbar { display: none }',
         customSiteTitle: "HemoGraph API Documentation",
+        customfavIcon: "/favicon.ico",
+        swaggerOptions: {
+            persistAuthorization: true,
+            displayRequestDuration: true,
+            filter: true,
+            deepLinking: true,
+            defaultModelsExpandDepth: -1,
+            defaultModelExpandDepth: 1,
+            defaultModelRendering: 'model',
+            displayOperationId: true,
+            docExpansion: 'none',
+            showExtensions: true,
+            showCommonExtensions: true,
+            supportedSubmitMethods: ['get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace'],
+            tryItOutEnabled: true,
+            syntaxHighlight: {
+                theme: 'monokai'
+            }
+        },
+        customCssUrl: '/swagger-ui.css',
+        customJsUrl: '/swagger-ui-bundle.js',
+        customSiteTitle: "HemoGraph API Documentation",
         customfavIcon: "/favicon.ico"
     }));
+
+    app.use('/swagger-ui.css', express.static(path.join(__dirname, 'node_modules/swagger-ui-dist/swagger-ui.css')));
+    app.use('/swagger-ui-bundle.js', express.static(path.join(__dirname, 'node_modules/swagger-ui-dist/swagger-ui-bundle.js')));
+    app.use('/swagger-ui-standalone-preset.js', express.static(path.join(__dirname, 'node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js')));
 }; 
