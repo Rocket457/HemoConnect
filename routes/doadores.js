@@ -72,10 +72,6 @@ router.post('/registro', async (req, res) => {
             });
         }
 
-        // Calcular data de nascimento (ano atual - idade)
-        const dataNascimento = new Date();
-        dataNascimento.setFullYear(dataNascimento.getFullYear() - idadeNum);
-
         // Validação do tipo sanguíneo
         const tiposValidos = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
         if (!tiposValidos.includes(tipo_sanguineo)) {
@@ -129,7 +125,6 @@ router.post('/registro', async (req, res) => {
             estado: String(estado).trim(),
             rua: String(rua).trim(),
             numero: String(numero).trim(),
-            bairro: String(bairro).trim(),
             email: String(email).trim().toLowerCase(),
             senha: hashedSenha
         };
@@ -150,8 +145,8 @@ router.post('/registro', async (req, res) => {
             INSERT INTO doadores (
                 id, nome, tipo_sanguineo, idade,
                 contato, cep, cidade, estado,
-                rua, numero, bairro, email, senha
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                rua, numero, email, senha
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
 
         await pool.execute(query, [
@@ -165,7 +160,6 @@ router.post('/registro', async (req, res) => {
             valores.estado,
             valores.rua,
             valores.numero,
-            valores.bairro,
             valores.email,
             valores.senha
         ]);
