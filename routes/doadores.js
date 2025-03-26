@@ -38,26 +38,28 @@ router.post('/registro', async (req, res) => {
         } = req.body;
 
         // Validação dos campos obrigatórios
-        if (!nome || !tipo_sanguineo || !data_nascimento || !peso || 
-            !contato || !cep || !cidade || !estado || 
-            !rua || !numero || !bairro || !email || !senha) {
+        const camposFaltantes = {
+            nome: !nome,
+            tipo_sanguineo: !tipo_sanguineo,
+            data_nascimento: !data_nascimento,
+            peso: !peso,
+            contato: !contato,
+            cep: !cep,
+            cidade: !cidade,
+            estado: !estado,
+            rua: !rua,
+            numero: !numero,
+            bairro: !bairro,
+            email: !email,
+            senha: !senha
+        };
+
+        const temCamposFaltantes = Object.values(camposFaltantes).some(faltando => faltando);
+        if (temCamposFaltantes) {
             return res.status(400).json({ 
                 error: 'Todos os campos são obrigatórios',
-                camposFaltantes: {
-                    nome: !nome,
-                    tipo_sanguineo: !tipo_sanguineo,
-                    data_nascimento: !data_nascimento,
-                    peso: !peso,
-                    contato: !contato,
-                    cep: !cep,
-                    cidade: !cidade,
-                    estado: !estado,
-                    rua: !rua,
-                    numero: !numero,
-                    bairro: !bairro,
-                    email: !email,
-                    senha: !senha
-                }
+                camposFaltantes,
+                status: 'error'
             });
         }
 
@@ -66,7 +68,9 @@ router.post('/registro', async (req, res) => {
         if (!tiposValidos.includes(tipo_sanguineo)) {
             return res.status(400).json({ 
                 error: 'Tipo sanguíneo inválido',
-                tiposValidos
+                tiposValidos,
+                camposFaltantes,
+                status: 'error'
             });
         }
 
@@ -74,7 +78,9 @@ router.post('/registro', async (req, res) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             return res.status(400).json({ 
-                error: 'Email inválido' 
+                error: 'Email inválido',
+                camposFaltantes,
+                status: 'error'
             });
         }
 
@@ -86,7 +92,9 @@ router.post('/registro', async (req, res) => {
 
         if (existente.length > 0) {
             return res.status(400).json({ 
-                error: 'Já existe um doador registrado com este email' 
+                error: 'Já existe um doador registrado com este email',
+                camposFaltantes,
+                status: 'error'
             });
         }
 
@@ -119,7 +127,9 @@ router.post('/registro', async (req, res) => {
             if (value === undefined || value === null) {
                 return res.status(400).json({
                     error: `Campo ${key} está inválido`,
-                    valor: value
+                    valor: value,
+                    camposFaltantes,
+                    status: 'error'
                 });
             }
         }
@@ -149,12 +159,18 @@ router.post('/registro', async (req, res) => {
             valores.senha
         ]);
 
-        res.status(201).json({ message: 'Doador registrado com sucesso!' });
+        res.status(201).json({ 
+            message: 'Doador registrado com sucesso!',
+            status: 'success',
+            camposFaltantes: {} // Campos vazios indicando que não há campos faltantes
+        });
     } catch (error) {
         console.error('Erro detalhado:', error);
         res.status(500).json({ 
             error: 'Erro ao registrar doador',
-            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+            camposFaltantes: {}, // Campos vazios em caso de erro interno
+            status: 'error'
         });
     }
 });
