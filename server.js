@@ -12,6 +12,8 @@ const app = express();
 // Configuração do CORS
 const corsOptions = {
   origin: [
+    'https://hemoconnectbackend.vercel.app/',
+    'https://hemoconnectbackend.vercel.app/api-docs',
     'https://hemo-connect-qgu8-git-main-rocket457s-projects.vercel.app',
     'https://hemo-connect.vercel.app',
     'http://localhost:3000'
