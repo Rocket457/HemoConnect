@@ -37,6 +37,31 @@ router.post('/registro', async (req, res) => {
             rua, numero, bairro, email, senha
         } = req.body;
 
+        // Validação dos campos obrigatórios
+        if (!nome || !tipo_sanguineo || !data_nascimento || !peso || 
+            !contato || !cep || !cidade || !estado || 
+            !rua || !numero || !bairro || !email || !senha) {
+            return res.status(400).json({ 
+                error: 'Todos os campos são obrigatórios' 
+            });
+        }
+
+        // Validação do tipo sanguíneo
+        const tiposValidos = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+        if (!tiposValidos.includes(tipo_sanguineo)) {
+            return res.status(400).json({ 
+                error: 'Tipo sanguíneo inválido' 
+            });
+        }
+
+        // Validação do email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ 
+                error: 'Email inválido' 
+            });
+        }
+
         // Verificar se já existe um doador com este email
         const [existente] = await pool.execute(
             'SELECT id FROM doadores WHERE email = ?',
@@ -71,8 +96,11 @@ router.post('/registro', async (req, res) => {
 
         res.status(201).json({ message: 'Doador registrado com sucesso!' });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Erro ao registrar doador' });
+        console.error('Erro detalhado:', error);
+        res.status(500).json({ 
+            error: 'Erro ao registrar doador',
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
     }
 });
 
