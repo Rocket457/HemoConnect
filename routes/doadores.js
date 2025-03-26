@@ -158,7 +158,7 @@ router.post('/registro', async (req, res) => {
             valores.id,
             valores.nome,
             valores.tipo_sanguineo,
-            valores.data_nascimento,
+            valores.idade,
             valores.contato,
             valores.cep,
             valores.cidade,
