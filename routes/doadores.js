@@ -33,7 +33,7 @@ router.post('/registro', async (req, res) => {
     try {
         const {
             nome, tipo_sanguineo, idade,
-            peso, contato, cep, cidade, estado,
+            contato, cep, cidade, estado,
             rua, numero, bairro, email, senha
         } = req.body;
 
@@ -42,7 +42,6 @@ router.post('/registro', async (req, res) => {
             nome: !nome,
             tipo_sanguineo: !tipo_sanguineo,
             idade: !idade,
-            peso: !peso,
             contato: !contato,
             cep: !cep,
             cidade: !cidade,
@@ -124,7 +123,6 @@ router.post('/registro', async (req, res) => {
             nome: String(nome).trim(),
             tipo_sanguineo: String(tipo_sanguineo).trim(),
             idade: idadeNum,
-            peso: Number(peso) || 0,
             contato: String(contato).trim(),
             cep: String(cep).trim(),
             cidade: String(cidade).trim(),
@@ -151,7 +149,7 @@ router.post('/registro', async (req, res) => {
         const query = `
             INSERT INTO doadores (
                 id, nome, tipo_sanguineo, idade,
-                peso, contato, cep, cidade, estado,
+                contato, cep, cidade, estado,
                 rua, numero, bairro, email, senha
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
@@ -161,7 +159,6 @@ router.post('/registro', async (req, res) => {
             valores.nome,
             valores.tipo_sanguineo,
             valores.data_nascimento,
-            valores.peso,
             valores.contato,
             valores.cep,
             valores.cidade,
