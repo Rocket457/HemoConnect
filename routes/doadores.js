@@ -42,7 +42,22 @@ router.post('/registro', async (req, res) => {
             !contato || !cep || !cidade || !estado || 
             !rua || !numero || !bairro || !email || !senha) {
             return res.status(400).json({ 
-                error: 'Todos os campos são obrigatórios' 
+                error: 'Todos os campos são obrigatórios',
+                camposFaltantes: {
+                    nome: !nome,
+                    tipo_sanguineo: !tipo_sanguineo,
+                    data_nascimento: !data_nascimento,
+                    peso: !peso,
+                    contato: !contato,
+                    cep: !cep,
+                    cidade: !cidade,
+                    estado: !estado,
+                    rua: !rua,
+                    numero: !numero,
+                    bairro: !bairro,
+                    email: !email,
+                    senha: !senha
+                }
             });
         }
 
@@ -50,7 +65,8 @@ router.post('/registro', async (req, res) => {
         const tiposValidos = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
         if (!tiposValidos.includes(tipo_sanguineo)) {
             return res.status(400).json({ 
-                error: 'Tipo sanguíneo inválido' 
+                error: 'Tipo sanguíneo inválido',
+                tiposValidos
             });
         }
 
@@ -80,6 +96,34 @@ router.post('/registro', async (req, res) => {
         // Gerar UUID
         const id = uuidv4();
 
+        // Garantir que todos os valores sejam strings ou números válidos
+        const valores = {
+            id,
+            nome: String(nome).trim(),
+            tipo_sanguineo: String(tipo_sanguineo).trim(),
+            data_nascimento: String(data_nascimento).trim(),
+            peso: Number(peso),
+            contato: String(contato).trim(),
+            cep: String(cep).trim(),
+            cidade: String(cidade).trim(),
+            estado: String(estado).trim(),
+            rua: String(rua).trim(),
+            numero: String(numero).trim(),
+            bairro: String(bairro).trim(),
+            email: String(email).trim().toLowerCase(),
+            senha: hashedSenha
+        };
+
+        // Verificar se algum valor é undefined ou null
+        for (const [key, value] of Object.entries(valores)) {
+            if (value === undefined || value === null) {
+                return res.status(400).json({
+                    error: `Campo ${key} está inválido`,
+                    valor: value
+                });
+            }
+        }
+
         const query = `
             INSERT INTO doadores (
                 id, nome, tipo_sanguineo, data_nascimento,
@@ -89,9 +133,20 @@ router.post('/registro', async (req, res) => {
         `;
 
         await pool.execute(query, [
-            id, nome, tipo_sanguineo, data_nascimento,
-            peso, contato, cep, cidade, estado,
-            rua, numero, bairro, email, hashedSenha
+            valores.id,
+            valores.nome,
+            valores.tipo_sanguineo,
+            valores.data_nascimento,
+            valores.peso,
+            valores.contato,
+            valores.cep,
+            valores.cidade,
+            valores.estado,
+            valores.rua,
+            valores.numero,
+            valores.bairro,
+            valores.email,
+            valores.senha
         ]);
 
         res.status(201).json({ message: 'Doador registrado com sucesso!' });
