@@ -32,7 +32,7 @@ router.get('/listar', async (req, res) => {
 router.post('/registro', async (req, res) => {
     try {
         const {
-            nome, tipo_sanguineo, data_nascimento,
+            nome, tipo_sanguineo, idade,
             peso, contato, cep, cidade, estado,
             rua, numero, bairro, email, senha
         } = req.body;
@@ -41,7 +41,7 @@ router.post('/registro', async (req, res) => {
         const camposFaltantes = {
             nome: !nome,
             tipo_sanguineo: !tipo_sanguineo,
-            data_nascimento: !data_nascimento,
+            idade: !idade,
             peso: !peso,
             contato: !contato,
             cep: !cep,
@@ -62,6 +62,20 @@ router.post('/registro', async (req, res) => {
                 status: 'error'
             });
         }
+
+        // Validação da idade
+        const idadeNum = parseInt(idade);
+        if (isNaN(idadeNum) || idadeNum < 16 || idadeNum > 69) {
+            return res.status(400).json({
+                error: 'Idade inválida. O doador deve ter entre 16 e 69 anos.',
+                camposFaltantes,
+                status: 'error'
+            });
+        }
+
+        // Calcular data de nascimento (ano atual - idade)
+        const dataNascimento = new Date();
+        dataNascimento.setFullYear(dataNascimento.getFullYear() - idadeNum);
 
         // Validação do tipo sanguíneo
         const tiposValidos = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
@@ -109,8 +123,8 @@ router.post('/registro', async (req, res) => {
             id,
             nome: String(nome).trim(),
             tipo_sanguineo: String(tipo_sanguineo).trim(),
-            data_nascimento: String(data_nascimento).trim(),
-            peso: Number(peso),
+            idade: idadeNum,
+            peso: Number(peso) || 0,
             contato: String(contato).trim(),
             cep: String(cep).trim(),
             cidade: String(cidade).trim(),
@@ -136,7 +150,7 @@ router.post('/registro', async (req, res) => {
 
         const query = `
             INSERT INTO doadores (
-                id, nome, tipo_sanguineo, data_nascimento,
+                id, nome, tipo_sanguineo, idade,
                 peso, contato, cep, cidade, estado,
                 rua, numero, bairro, email, senha
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
