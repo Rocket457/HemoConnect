@@ -1,0 +1,77 @@
+.home-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.blood-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+.home-title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  color: #343a40;
+}
+
+.home-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #6c757d;
+}
+
+.donate-button {
+  font-size: 1.25rem;
+  padding: 0.75rem 2rem;
+  min-width: 300px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.donate-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.6), 0 0 60px rgba(0, 0, 0, 0.4);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .home-title {
+    font-size: 2rem;
+  }
+
+  .home-text {
+    font-size: 0.9rem;
+  }
+
+  .donate-button {
+    font-size: 1.1rem;
+    min-width: 250px;
+    padding: 0.6rem 1.5rem;
+  }
+
+  .blood-image {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 576px) {
+  .home-title {
+    font-size: 1.75rem;
+  }
+
+  .home-text {
+    font-size: 0.85rem;
+  }
+
+  .donate-button {
+    font-size: 1rem;
+    min-width: 200px;
+    padding: 0.5rem 1.25rem;
+  }
+
+  .blood-image {
+    max-height: 250px;
+  }
+} 

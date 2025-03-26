@@ -9,8 +9,21 @@ const necessidadesSangueRoutes = require('./routes/necessidadesSangue');
 
 const app = express();
 
+// Configuração do CORS
+const corsOptions = {
+  origin: [
+    'https://hemo-connect-qgu8-git-main-rocket457s-projects.vercel.app',
+    'https://hemo-connect.vercel.app',
+    'http://localhost:3000'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  maxAge: 86400 // 24 horas
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Configuração do Swagger
