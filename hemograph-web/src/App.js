@@ -7,6 +7,7 @@ import CadastroBanco from './pages/CadastroBanco';
 import ListaNecessidades from './pages/ListaNecessidades';
 import ListaDoadores from './pages/ListaDoadores';
 import GerenciarNecessidades from './pages/GerenciarNecessidades';
+import QuemSomos from './pages/QuemSomos';
 import RotaPrivadaBanco from './components/RotaPrivadaBanco';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -19,6 +20,7 @@ function App() {
       <Route path="/cadastro/doador" element={<CadastroDoador />} />
       <Route path="/cadastro/banco" element={<CadastroBanco />} />
       <Route path="/necessidades" element={<ListaNecessidades />} />
+      <Route path="/quem-somos" element={<QuemSomos />} />
       <Route 
         path="/doadores" 
         element={

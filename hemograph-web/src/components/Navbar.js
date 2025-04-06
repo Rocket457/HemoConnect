@@ -36,7 +36,7 @@ function NavigationBar() {
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav className="align-items-start">
             <NavLink to="/" className={({ isActive }) => `nav-link mx-2 ${isActive ? 'active' : ''}`}>Home</NavLink>
-            <NavLink to="/sobre" className={({ isActive }) => `nav-link mx-2 ${isActive ? 'active' : ''}`}>Sobre nós</NavLink>
+            <NavLink to="/quem-somos" className={({ isActive }) => `nav-link mx-2 ${isActive ? 'active' : ''}`}>Quem Somos</NavLink>
             {userType === 'doador' && (
               <NavLink to="/necessidades" className={({ isActive }) => `nav-link mx-2 ${isActive ? 'active' : ''}`}>Quero Doar</NavLink>
             )}
