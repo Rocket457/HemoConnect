@@ -79,7 +79,7 @@ function QuemSomos() {
             <p>
               Em um cenário de crescente demanda e dificuldades para manter estoques adequados de sangue, identificamos 
               a necessidade de um sistema mais acessível e eficiente. Queremos contribuir para que a doação de sangue 
-              seja uma prática mais comum e fácil, com foco na humanização e sem impacto positivo para a sociedade.
+              seja uma prática mais comum e fácil, com foco na humanização e com um impacto positivo para a sociedade.
             </p>
           </Col>
         </Row>
